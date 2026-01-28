@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.EmpExprMapper">
+    <!--批量插入员工工作经历信息-->
+    <insert id="insertBatch">
+        insert into emp_expr (emp_id, begin, end, company, job) values
+        <foreach collection="list" item="expr" separator=",">
+            (#{expr.empId}, #{expr.begin}, #{expr.end}, #{expr.company}, #{expr.job})
+        </foreach>
+    </insert>
+<!--
+Mybatis中的动态SQL里提供的 <foreach> 标签，常见属性说明：
+collection：指定要遍历的集合或数组的名称。
+item：集合遍历出来的元素/项。
+separator：指定每个元素之间的分隔符。
+open：指定遍历开始时的前缀。
+close：指定遍历结束时的后缀。
+index：指定遍历过程中每个元素的索引变量名。
+-->
+</mapper>

@@ -1,0 +1,21 @@
+Mapper 接口:持久层，是数据访问接口。     写SQL语句
+Service 接口:业务层，是业务逻辑接口。      调用Mapper接口
+Controller 接口:控制层，是用户界面接口。      接受请求，调用Service接口，返回响应。
+
+
+添加部门接口：前端会输入name，所以controller处要加上@RequestBody
+                 @PostMapping("/depts")
+                    public Result addDept(@RequestBody Dept dept){
+                        System.out.println("添加新的部门");
+                        deptService.addDept(dept);
+                        return Result.success();
+                    }
+              并且在serviceImpl处补全另外剩余的参数:
+                 @Override
+                    public void addDept(Dept dept) {
+                        //补全基础属性
+                        dept.setCreateTime(LocalDateTime.now());
+                        dept.setUpdateTime(LocalDateTime.now());
+                        deptMapper.addDept(dept);
+                    }
+          同样的，getInfo接口中 @PathVariable获取路径参数。
